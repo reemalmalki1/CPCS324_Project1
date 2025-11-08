@@ -5,6 +5,14 @@ public class Main {
         Graph g = new Graph();                     // Create new graph
         g.readGraphFromFile("graph.txt");          // Read from file
         System.out.println("✅ Graph edges loaded successfully:\n");
-        g.printGraph();                            // Print to check
+        g.printGraph();
+        // Print to check
+        // Create Prim algorithm object
+        PrimAlg prim = new PrimAlg(); 
+        // Compute MST
+        prim.findMST(g);
+        // Print the result using the abstract class print method
+        prim.printResult();
+
     }
 }
