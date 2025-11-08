@@ -12,7 +12,19 @@ public class Main {
         // Compute MST
         prim.findMST(g);
         // Print the result using the abstract class print method
+        System.out.println("MST (Prim):");
         prim.printResult();
+        
+        // Create kruskal algorithm object
+        MSTAlgorithm kruskal = new KruskalAlg();
+        
+        // Compute MST using kruskal algorithm
+        // with Disjoint Subsets and Union-Find Algorithms
+        kruskal.findMST(g);
+        
+        // Print the result using the abstract class print method
+        System.out.println("MST (Kruskal):");
+        kruskal.printResult();
 
     }
 }
