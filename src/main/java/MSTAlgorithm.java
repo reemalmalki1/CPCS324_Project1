@@ -23,7 +23,6 @@ public abstract class MSTAlgorithm {
             return;
         }
 
-        System.out.println("MST Edges:");
         for (Edge e : result) {
             System.out.println(e.source.label + " -- " + e.destination.label + " : " + e.weight);
         }
