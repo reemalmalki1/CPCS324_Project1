@@ -1,4 +1,3 @@
-
 /**
  * Represents a water junction (or node) in the distribution network.
  * This class extends the generic Vertex class to include additional
@@ -36,3 +35,4 @@ public class Junction extends Vertex{
     }
 
 } 
+
