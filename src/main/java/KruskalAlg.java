@@ -1,14 +1,12 @@
-
 import java.util.*;
 
 /**
- *
- * @author Rawan Munshi
- */
-
+ * Represents a node in the linked-list structure used to implement
+ * disjoint subsets for Kruskal's algorithm.
+*/
 class Node {
-    String data;
-    Node next;
+    String data; // Vertex label (e.g., "J1", "J2")
+    Node next;   // Pointer to the next node in the subset
     SetNode set; // the sebset which the node belongs
 
     Node(String data) {
@@ -16,16 +14,16 @@ class Node {
     }
 }
 
-// subset structure
+// Represents the header (or metadata) for each subset.
 class SetNode {
     Node head;
     Node tail;
 }
 
-// Linked List used to implemente each subset, where:
-// header contains the pointers to the first and last elements 
-// of the list along with the number of elements in the list.
-
+/** Linked List used to implemente each subset, where
+ * header contains the pointers to the first and last elements 
+ * of the list along with the number of elements in the list.
+ */
 class LinkedListSet {
     
     // Create a subset contain one vertex
@@ -38,24 +36,24 @@ class LinkedListSet {
         return set;
     }
 
-    // Find the set (list header)
+    // Finds the representative (head) of the subset for the given node.
     public static Node find(Node node) {
         return node.set.head;
     }
 
-    // union set A and set B
+    // Merges (unions) two subsets A and B into one.
     public static void union(Node a, Node b) {
         SetNode setA = a.set;
         SetNode setB = b.set;
 
-        // if they are in the same set , exit
+        // If they are in the same set, no need to merge
         if (setA == setB) return; 
 
         //  Link the tail of set A to the head of set B.
         setA.tail.next = setB.head;
         setA.tail = setB.tail;
 
-        // update the set for each node in set B.
+        // Update all nodes in set B to point to set A
         Node temp = setB.head;
         while (temp != null) {
             temp.set = setA;
