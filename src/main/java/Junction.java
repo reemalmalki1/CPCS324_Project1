@@ -2,16 +2,14 @@
 public class Junction extends Vertex{
     
     private String zone ;
-    private boolean active ;
     
     public Junction(String label) {
         super(label);
     }
 
-    public Junction(String label, String zone, boolean active) {
+    public Junction(String label, String zone) {
         super(label);
         this.zone = zone;
-        this.active = active;
     }
 
     public String getZone() {
@@ -22,17 +20,9 @@ public class Junction extends Vertex{
         this.zone = zone;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     @Override
     public String toString() {
-        return "Junction{" + "label=" + label + "zone=" + zone + ", active=" + active + '}';
+        return "Junction{" + "label= " + label + "zone= " + zone + " }";
     }
 
 } 
