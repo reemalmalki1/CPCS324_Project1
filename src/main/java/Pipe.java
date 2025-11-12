@@ -3,17 +3,15 @@
 public class Pipe extends Edge {
     private String material;
     private double maxPressure;
-    private boolean isLeaking;
     
     public Pipe(Junction source, Junction destination, int weight) {
         super(source, destination, weight);
     }
 
-    public Pipe(String material, double maxPressure, boolean isLeaking, Junction source, Junction destination, int weight) {
+    public Pipe(Junction source, Junction destination, int weight , String material, double maxPressure) {
         super(source, destination, weight);
         this.material = material;
         this.maxPressure = maxPressure;
-        this.isLeaking = isLeaking;
     }
 
     public String getMaterial() {
@@ -32,19 +30,11 @@ public class Pipe extends Edge {
         this.maxPressure = maxPressure;
     }
 
-    public boolean isIsLeaking() {
-        return isLeaking;
-    }
-
-    public void setIsLeaking(boolean isLeaking) {
-        this.isLeaking = isLeaking;
-    }
-
     @Override
     public String toString() {
         return "Pipe{" + "source=" + source + ", destination=" + destination 
                 +", weight=" + weight + "material=" + material + ", maxPressure="
-                + maxPressure + ", isLeaking=" + isLeaking + '}';
+                + maxPressure + '}';
     }
     
 }
