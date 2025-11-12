@@ -10,60 +10,59 @@ public class Main {
         int JCount; // vertex count
         int PCount; // edge count
         Graph g = new Graph(); // Create new graph
-        // Create Prim algorithm object
-        PrimAlg prim = new PrimAlg();
-        // Create kruskal algorithm object
-        MSTAlgorithm kruskal = new KruskalAlg();
+
         Scanner input = new Scanner(System.in);
+        System.out.println("*************************************");
+        System.out.println(" Algorithms and Data Structures (II)");
+        System.out.println("       Group Project - Part I");
         do {
-            System.out.print("\nSelect one option:\n"
-                    + "1. Load  a Graph from an input file \n"
-                    + "2. Generate a Random Graph \n"
-                    + "3. Enter junctions and pipelines (manually) \n"
-                    + "4. Exit \n your option:");
+            System.out.println("*************************************");
+
+            System.out.print("1. Load a Graph from an input file and find MST \n"
+                    + "2. Comparison of Kruskal's and Min-Heap Prim's Algorithms\n "
+                    + "   Using a Random Graph \n"
+                    + "3. Find minimum construction cost for Water Distribution Network\n"
+                    + "4. Exit \n Select one option: ");
             userOption = input.nextInt();
+            System.out.println("--------------------------------------");
             switch (userOption) {
                 case 1: {
                     g.readGraphFromFile("graph.txt");          // Read from file
-                    System.out.println("✅ Graph edges loaded successfully:\n");
+                    System.out.println("✅ Graph edges loaded successfully:");
                     g.printGraph(); // Print to check
-
-                    // Compute MST
-                    prim.findMST(g);
-                    // Print the result using the abstract class print method
-                    System.out.println("MST (Prim):");
-                    prim.printResult();
-
-                    // Compute MST using kruskal algorithm
-                    // with Disjoint Subsets and Union-Find Algorithms
-                    kruskal.findMST(g);
-
-                    // Print the result using the abstract class print method
-                    System.out.println("MST (Kruskal):");
-                    kruskal.printResult();
+                    MST_PrimAlgorithm(g, true);
+                    MST_kruskalAlgorithm(g, true);
                     break;
                 }
                 case 2: {
                     do {
-                        System.out.print("\nEnter Junction(Vertexs) Count:");
+                        System.out.print("Enter Junction(Vertexs) Count: ");
                         JCount = input.nextInt();
-                        System.out.print("Enter pipe(edges) Count:");
+                        System.out.print("Enter pipe(edges) Count: ");
                         PCount = input.nextInt();
                     } while (JCount < 2 || PCount < 1);
+                    
                     RandomGraph RandomGraphObj = new RandomGraph();
                     g = RandomGraphObj.make_graph(JCount, PCount);
-                    g.printGraph();
+                    //g.printGraph();
 
-                    // Compute MST
-                    prim.findMST(g);
-                    // Print the result using the abstract class print method
-                    System.out.println("MST (Prim):");
-                    prim.printResult();
+                    long start, end, primAlgorithmDuration, kruskalAlgorithmDuration;
 
-                    kruskal.findMST(g);
-                    // Print the result using the abstract class print method
-                    System.out.println("MST (Kruskal) network:");
-                    kruskal.printResult();
+                    start = System.nanoTime();  // get start time
+                    MST_PrimAlgorithm(g, false);
+                    end = System.nanoTime(); // get end time
+
+                    // calculating execution time in ms.
+                    primAlgorithmDuration = (end - start) / 1000000;
+                    System.out.println("Execution time for Prim Algorithm : " + primAlgorithmDuration + " ms");
+
+                    start = System.nanoTime();  // get start time
+                    MST_kruskalAlgorithm(g, false);
+                    end = System.nanoTime(); // get end time
+
+                    // calculating execution time in ms.
+                    kruskalAlgorithmDuration = (end - start) / 1000000;
+                    System.out.println("Execution time for Kruskal Algorithm : " + kruskalAlgorithmDuration + " ms");
 
                     break;
                 }
@@ -102,16 +101,8 @@ public class Main {
                     network.addEdge(p7);
                     network.addEdge(p8);
 
-                    // Compute MST
-                    prim.findMST(network);
-                    // Print the result using the abstract class print method
-                    System.out.println("MST (Prim):");
-                    prim.printResult();
-
-                    kruskal.findMST(network);
-                    // Print the result using the abstract class print method
-                    System.out.println("MST (Kruskal) network:");
-                    kruskal.printResult();
+                    MST_PrimAlgorithm(network, true);
+                    MST_kruskalAlgorithm(network, true);
                 }
                 case 4: {
                     System.exit(0);
@@ -119,4 +110,34 @@ public class Main {
             }
         } while (true);
     }
+
+    public static void MST_PrimAlgorithm(Graph graph, boolean printMST) {
+        // Create Prim algorithm object
+        PrimAlg prim = new PrimAlg();
+
+        // Compute MST
+        prim.findMST(graph);
+
+        if (printMST) {
+            // Print the result using the abstract class print method
+            System.out.println("MST (Prim):");
+            prim.printResult();
+        }
+    }
+
+    public static void MST_kruskalAlgorithm(Graph graph, boolean printMST) {
+
+        // Create kruskal algorithm object
+        MSTAlgorithm kruskal = new KruskalAlg();
+
+        // Compute MST using kruskal algorithm
+        // with Disjoint Subsets and Union-Find Algorithms
+        kruskal.findMST(graph);
+        if (printMST) {
+            // Print the result using the abstract class print method
+            System.out.println("MST (Kruskal):");
+            kruskal.printResult();
+        }
+    }
+
 }
