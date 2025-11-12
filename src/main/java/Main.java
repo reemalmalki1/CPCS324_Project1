@@ -121,6 +121,7 @@ public class Main {
                     } else {
                     MST_kruskalAlgorithm(network, true);
                     }
+                    break;
                 }
                 case 4: {
                     System.exit(0);
