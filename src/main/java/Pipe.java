@@ -1,4 +1,3 @@
-
 /**
  * Represents a water pipe (or edge) connecting two junctions in the network.
  * This class extends the generic Edge class and includes additional
@@ -8,7 +7,6 @@
  * Each Pipe object defines a connection between two Junction objects
  * with an associated cost (weight), material type, and pressure limit.
  */
-
 public class Pipe extends Edge {
     
     // The material of the pipe (e.g., PVC, Steel)
@@ -53,3 +51,4 @@ public class Pipe extends Edge {
     }
     
 }
+
