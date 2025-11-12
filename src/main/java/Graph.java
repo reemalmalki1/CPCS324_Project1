@@ -45,6 +45,20 @@ public class Graph {
         Edge edge = new Edge(v1, v2, weight);
         edges.add(edge);
     }
+    
+    // Add edge 
+    public void addEdge(Edge edge) {
+        if(!edges.contains(edge)){
+            edges.add(edge);
+        }
+    }
+    
+     // Add Vertex 
+    public void addVertex(Vertex v) {
+        if(!vertices.contains(v)){
+            vertices.add(v);
+        }
+    }
 
     // Find or create a vertex
     private Vertex getOrCreateVertex(String label) {
@@ -63,7 +77,4 @@ public class Graph {
             System.out.println(e.source.label + " -- " + e.destination.label + " : " + e.weight);
         }
     }
-
-
-    
 }
