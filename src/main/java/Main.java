@@ -2,15 +2,12 @@
 import java.util.Scanner;
 
 //CPCS324 Project - Part 1
-//This single class version contains everything in one file for simplicity
 public class Main {
-
     public static void main(String[] args) {
         int userOption;
         int JCount; // vertex count
         int PCount; // edge count
         Graph g = new Graph(); // Create new graph
-
         Scanner input = new Scanner(System.in);
         System.out.println("*************************************");
         System.out.println(" Algorithms and Data Structures (II)");
@@ -55,15 +52,12 @@ public class Main {
                     // calculating execution time in ms.
                     primAlgorithmDuration = (end - start) / 1000000;
                     System.out.println("Execution time for Prim Algorithm : " + primAlgorithmDuration + " ms");
-
                     start = System.nanoTime();  // get start time
                     MST_kruskalAlgorithm(g, false);
                     end = System.nanoTime(); // get end time
-
                     // calculating execution time in ms.
                     kruskalAlgorithmDuration = (end - start) / 1000000;
                     System.out.println("Execution time for Kruskal Algorithm : " + kruskalAlgorithmDuration + " ms");
-
                     break;
                 }
                 case 3: {
@@ -101,12 +95,10 @@ public class Main {
                                 material, maxPressure);
                         network.addEdge(p1);
                     }
-
                     System.out.println("=======================================");
                     System.out.println("   Water Distribution Network (Graph)   ");
                     System.out.println("=======================================");
                     network.printGraph();
-                    
                     int choice  ;
                     do {
                         System.out.println("Choose an algorithm to find MST:");
@@ -133,22 +125,17 @@ public class Main {
     public static void MST_PrimAlgorithm(Graph graph, boolean printMST) {
         // Create Prim algorithm object
         PrimAlg prim = new PrimAlg();
-
         // Compute MST
         prim.findMST(graph);
-
         if (printMST) {
             // Print the result using the abstract class print method
             System.out.println("MST (Prim):");
             prim.printResult();
         }
     }
-
     public static void MST_kruskalAlgorithm(Graph graph, boolean printMST) {
-
         // Create kruskal algorithm object
         MSTAlgorithm kruskal = new KruskalAlg();
-
         // Compute MST using kruskal algorithm
         // with Disjoint Subsets and Union-Find Algorithms
         kruskal.findMST(graph);
@@ -158,5 +145,4 @@ public class Main {
             kruskal.printResult();
         }
     }
-
 }
