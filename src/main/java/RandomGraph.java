@@ -21,7 +21,7 @@ public class RandomGraph {
 
         Random rand = new Random();
         List<Edge> edges = new ArrayList<>(m);
-        // Use a set to avoid duplicates: store as "min#max"
+        // Use a set to avoid duplicate edges (undirected)
         HashSet<String> seen = new HashSet<>();
 
         // 1) Build a random spanning tree first to ensure connectivity
@@ -62,3 +62,4 @@ public class RandomGraph {
     }
 
 }
+
