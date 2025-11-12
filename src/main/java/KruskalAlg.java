@@ -66,13 +66,11 @@ class LinkedListSet {
 
 public class KruskalAlg extends MSTAlgorithm {
 
-    // initialize result list 
-    public KruskalAlg() {
-        result =  new ArrayList<>();
-    }
-    
     @Override
     public List<Edge> findMST (Graph g){
+        
+        // initialize result list 
+        result =  new ArrayList<>();
 
         int vertexCount = g.vertices.size();
         
