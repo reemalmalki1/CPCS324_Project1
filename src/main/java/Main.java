@@ -19,10 +19,10 @@ public class Main {
             System.out.println("*************************************");
 
             System.out.print("1. Load a Graph from an input file and find MST \n"
-                    + "2. Comparison of Kruskal's and Min-Heap Prim's Algorithms\n "
-                    + "   Using a Random Graph \n"
-                    + "3. Find minimum construction cost for Water Distribution Network\n"
-                    + "4. Exit \n Select one option: ");
+                    + "2. Comparison of Kruskal's and Min-Heap Prim's Algorithms "
+                    + "\n   Using a Random Graph \n"
+                    + "3. Find minimum construction cost for Water Distribution Network"
+                    + "\n4. Exit \n Select one option: ");
             userOption = input.nextInt();
             System.out.println("--------------------------------------");
             switch (userOption) {
@@ -41,7 +41,7 @@ public class Main {
                         System.out.print("Enter pipe(edges) Count: ");
                         PCount = input.nextInt();
                     } while (JCount < 2 || PCount < 1);
-                    
+
                     RandomGraph RandomGraphObj = new RandomGraph();
                     g = RandomGraphObj.make_graph(JCount, PCount);
                     //g.printGraph();
@@ -69,40 +69,58 @@ public class Main {
                 case 3: {
                     Graph network = new Graph();
                     do {
-                        System.out.print("\nEnter Junction(Vertexs) Count:");
+                        System.out.print("Enter Junction(Vertexs) Count: ");
                         JCount = input.nextInt();
-                        System.out.print("Enter pipe(edges) Count:");
+                        System.out.print("Enter pipe(edges) Count: ");
                         PCount = input.nextInt();
                     } while (JCount < 2 || PCount < 1);
-                    Junction j1 = new Junction("J1");
-                    Junction j2 = new Junction("J2");
-                    Junction j3 = new Junction("J3");
-                    Junction j4 = new Junction("J4");
-                    Junction j5 = new Junction("J5");
-                    Pipe p1 = new Pipe(j1, j3, 5);
-                    Pipe p2 = new Pipe(j1, j4, 13);
-                    Pipe p3 = new Pipe(j1, j5, 8);
-                    Pipe p4 = new Pipe(j2, j4, 4);
-                    Pipe p5 = new Pipe(j2, j5, 15);
-                    Pipe p6 = new Pipe(j3, j4, 7);
-                    Pipe p7 = new Pipe(j4, j5, 9);
-                    Pipe p8 = new Pipe(j1, j2, 2);
-                    network.addVertex(j1);
-                    network.addVertex(j2);
-                    network.addVertex(j3);
-                    network.addVertex(j4);
-                    network.addVertex(j5);
-                    network.addEdge(p1);
-                    network.addEdge(p2);
-                    network.addEdge(p3);
-                    network.addEdge(p4);
-                    network.addEdge(p5);
-                    network.addEdge(p6);
-                    network.addEdge(p7);
-                    network.addEdge(p8);
+                    for (int i = 1; i <= JCount; i++) {
+                        Junction node = new Junction("J" + i);
+                        System.out.print("Enter Junction " + i + " zone: ");
+                        node.setZone(input.next());
+                        network.addVertex(node);
+                    }
+                    System.out.print("\nJunction: ");
+                    for (int i = 0; i < JCount; i++) {
+                        System.out.print(network.vertices.get(i).label + " ");
+                    }
+                    for (int i = 1; i <= PCount; i++) {
+                        System.out.println("\nEnter pipe " + i + " information:");
+                        System.out.print("source (number): ");
+                        int source = input.nextInt();
+                        System.out.print("destination (number): ");
+                        int destination = input.nextInt();
+                        System.out.print("cost: ");
+                        int cost = input.nextInt();
+                        System.out.print("material: ");
+                        String material = input.next();
+                        System.out.print("maxPressure: ");
+                        double maxPressure = input.nextInt();
+                        Pipe p1 = new Pipe((Junction) network.vertices.get(source - 1),
+                                (Junction) network.vertices.get(destination - 1), cost,
+                                material, maxPressure);
+                        network.addEdge(p1);
+                    }
 
+                    System.out.println("=======================================");
+                    System.out.println("   Water Distribution Network (Graph)   ");
+                    System.out.println("=======================================");
+                    network.printGraph();
+                    
+                    int choice  ;
+                    do {
+                        System.out.println("Choose an algorithm to find MST:");
+                        System.out.println("1. Prim's Algorithm");
+                        System.out.println("2. Kruskal's Algorithm");
+                        System.out.print("Enter your choice (1 or 2): ");
+                        choice  = input.nextInt();
+                    } while (choice != 1 && choice != 2);
+                    
+                    if(choice == 1){
                     MST_PrimAlgorithm(network, true);
+                    } else {
                     MST_kruskalAlgorithm(network, true);
+                    }
                 }
                 case 4: {
                     System.exit(0);
