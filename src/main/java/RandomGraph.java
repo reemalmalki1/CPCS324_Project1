@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class RandomGraph {
@@ -10,7 +9,7 @@ public class RandomGraph {
      */
     public Graph make_graph(int n, int m) {
         
-        Graph randomGraph = new Graph ();
+        Graph randomGraph = new Graph(); // Graph object with vertices, edges, and adjList initialized
         
         if (m < n - 1) {
             throw new IllegalArgumentException("m must be at least n-1 to be connected");
@@ -20,46 +19,47 @@ public class RandomGraph {
         }
 
         Random rand = new Random();
-        List<Edge> edges = new ArrayList<>(m);
-        // Use a set to avoid duplicate edges (undirected)
-        HashSet<String> seen = new HashSet<>();
+        HashSet<String> seen = new HashSet<>(); // To avoid duplicate edges (undirected)
 
-        // 1) Build a random spanning tree first to ensure connectivity
+        // 1) Create vertices
         List<Vertex> nodes = new ArrayList<>();
-        
         for (int i = 1; i <= n; i++) {
-        nodes.add(new Vertex("J"+i));
+            Vertex v = new Vertex("J" + i);
+            nodes.add(v);
+            randomGraph.addVertex(v); 
+            // addVertex also initializes adjacency list for each vertex
         }
-        Collections.shuffle(nodes, rand);
 
+        // 2) Build a random spanning tree first to ensure connectivity
+        Collections.shuffle(nodes, rand);
         for (int i = 1; i < nodes.size(); i++) {
             Vertex u = nodes.get(i);
-            Vertex v = nodes.get(rand.nextInt(i)); // connect to one of previous nodes => tree
-            int w = rand.nextInt(100) + 1; // weight 1..100
+            Vertex v = nodes.get(rand.nextInt(i)); // connect to one of previous nodes
+            int w = rand.nextInt(100) + 1;        // random weight 1..100
 
-            
-            seen.add(u + "#" + v);
-            edges.add(new Edge(u, v, w));
+            Edge e = new Edge(u, v, w);
+            randomGraph.addEdge(e); 
+            // addEdge automatically updates adjList for both u and v
+            seen.add(u.label + "#" + v.label); 
         }
 
-        // 2) Add random edges until we have m edges
-        while (edges.size() < m) {
-            Vertex  u = nodes.get(rand.nextInt(n-1) + 1);
-            Vertex  v = nodes.get(rand.nextInt(n-1) + 1);
-            if (u == v) continue;
+        // 3) Add random edges until we reach m edges
+        while (randomGraph.edges.size() < m) {
+            Vertex u = nodes.get(rand.nextInt(n));
+            Vertex v = nodes.get(rand.nextInt(n));
+            if (u.equals(v)) continue;  // avoid self-loop
 
-            String key1 = u + "#" + v;
-            String key2 = v + "#" + u;
-            if (seen.contains(key1) || seen.contains(key2)) continue; // avoid duplicate
+            String key1 = u.label + "#" + v.label;
+            String key2 = v.label + "#" + u.label;
+            if (seen.contains(key1) || seen.contains(key2)) continue; // avoid duplicates
+
             int w = rand.nextInt(100) + 1;
+            Edge e = new Edge(u, v, w);
+            randomGraph.addEdge(e); 
+            // addEdge updates adjacency list automatically
             seen.add(key1);
-            edges.add(new Edge(u, v, w));
         }
 
-        randomGraph.vertices = nodes;
-        randomGraph.edges = edges ;
         return randomGraph;
     }
-
 }
-
